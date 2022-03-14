@@ -220,17 +220,22 @@ bool RPCImpl::ProcessConnectRPC(std::vector<std::string>& arrayTokens)
     string passwordString = arrayTokens[PASSWORDTOKEN];
     char szBuffer[80];
 
-    // Our Authentication Logic. Looks like Mike/Mike is only valid combination
-    if ((userNameString == "group1") && (passwordString == "group1pass"))
-    {
-        strcpy(szBuffer, "1"); // Connected
-        printf("User login successfully\n");
+    // get user logins
+    std::map<std::string, std::string> userCredentials = users();
+    for (int i = 0; i < userCredentials.size(); ++i) {
+        // Our Authentication Logic. Looks like Mike/Mike is only valid combination
+        if ((userNameString == userCredentials.key_comp()) && ( passwordString.compare(userCredentials.value_comp())))
+        {
+            strcpy(szBuffer, "1"); // Connected
+            printf("User login successfully\n");
+        }
+        else
+        {
+            strcpy(szBuffer, "0"); // Not Connected
+            printf("User login failed\n");
+        }
     }
-    else
-    {
-        strcpy(szBuffer, "0"); // Not Connected
-        printf("User login failed\n");
-    }
+
 
     // Send Response back on our socket
     int nlen = strlen(szBuffer);
