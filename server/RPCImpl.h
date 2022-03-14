@@ -24,6 +24,7 @@
 #include <vector>
 #include <iterator>
 #include "LocalContext.h"
+#include <map>
 
 class RPCImpl
 {
@@ -46,6 +47,7 @@ private:
     bool ProcessPostAnswerRPC(std::vector<std::string>& arrayTokens);
     bool ProcessGetScoreRPC(std::vector<std::string>& arrayTokens);
     bool ProcessDisconnectRPC();
+    std::map<std::string, std::string> users();
     void ParseTokens(char* buffer, std::vector<std::string>& a);
     void readFile(struct _Question questionArray[]);
 };

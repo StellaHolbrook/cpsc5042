@@ -199,8 +199,15 @@ bool RPCImpl::ProcessRPC()
 /*
  *  create login map of acceptable users
  */
-map RPCImpl::users(){
-    map<string, string>
+std::map<std::string, std::string> RPCImpl::users(){
+    map<string, string> credentials;
+    // create two arrays of the login credentials for users
+    std::string usernames[5] = {"group1", "Jack", "David", "Luoshan", "Jeremiah"};
+    std::string passwords[5] = {"group1pass", "pass1", "pass2", "pass3", "pass4"};
+    for (int i = 0; i < usernames->length(); ++i) {
+        credentials.insert(pair<string, string>(usernames[i], passwords[i]));
+    }
+    return credentials;
 }
 
 bool RPCImpl::ProcessConnectRPC(std::vector<std::string>& arrayTokens)
