@@ -1,0 +1,60 @@
+1. Which loop is based on condition?
+A: for loop
+B: while loop
+C: increment loop
+D: for each loop
+B
+2. A C++ header file holds which?
+A: function prototypes
+B: function implementations
+C: key value pairs
+D: C skeletons
+A
+3. What does the server recieve directions from?
+A: server RPC's
+B: server implementation
+C: client
+D: server2.0
+C
+4. In Operating Systems, which of the following is/are CPU scheduling algorithms?
+A Priority
+B Round Robin
+C Shortest Job First
+D All of the mentioned
+D
+5. CPU scheduling is the basis of ___________
+A multiprogramming operating systems
+B larger memory sized systems
+C multiprocessor systems
+D none of the mentioned
+A
+6. Which one of the following errors will be handle by the operating system?
+A lack of paper in printer
+B connection failure in the network
+C power failure
+D all of the mentioned
+D
+7. Which one of the following is not a real time operating system?
+A RTLinux
+B Palm OS
+C QNX
+D VxWorks
+B
+8. The FCFS algorithm is particularly troublesome for ____________
+A operating systems
+B multiprocessor systems
+C time sharing systems
+D multiprogramming systems
+D
+9. For an effective operating system, when to check for deadlock?
+A every time a resource request is made at fixed time intervals
+B at fixed time intervals
+C every time a resource request is made
+D none of the mentioned
+A
+10. In real time operating system ____________
+A process scheduling can be done only once
+B all processes have the same priority
+C kernel is not required
+D a task must be serviced by its deadline period
+D
