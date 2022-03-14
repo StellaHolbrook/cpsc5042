@@ -13,7 +13,7 @@
 #include <iostream>
 #include <pthread.h>
 #include <semaphore.h>
-
+#include<map>
 #include "RPCImpl.h"
 #include "LocalContext.h"
 
@@ -194,6 +194,13 @@ bool RPCImpl::ProcessRPC()
     }
 
     return true;
+}
+
+/*
+ *  create login map of acceptable users
+ */
+map RPCImpl::users(){
+    map<string, string>
 }
 
 bool RPCImpl::ProcessConnectRPC(std::vector<std::string>& arrayTokens)

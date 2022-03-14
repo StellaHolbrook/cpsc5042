@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.11)
 
 # setting project name
-project(quizGame VERSION 1.2)
+project(milestone2 VERSION 1.2)
 
 # add the executable
 add_executable(server main.cpp LocalContext.h RPCServer.h RPCImpl.h RPCImpl.cpp RPCServer.cpp)
