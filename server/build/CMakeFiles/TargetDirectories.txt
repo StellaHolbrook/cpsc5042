@@ -1,3 +1,0 @@
-/home/st/jholbrook/milestone2.6/server/build/CMakeFiles/rebuild_cache.dir
-/home/st/jholbrook/milestone2.6/server/build/CMakeFiles/server.dir
-/home/st/jholbrook/milestone2.6/server/build/CMakeFiles/edit_cache.dir
