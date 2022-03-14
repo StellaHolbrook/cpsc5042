@@ -8,6 +8,7 @@
 #include <vector>
 #include <iterator>
 #include <iostream>
+#include <regex>
 
 using namespace std;
 // This is a C Program. No classes. You may turn this into an Object Oriented C++ program if you wish
@@ -62,15 +63,29 @@ bool ConnectToServer(const char *serverAddress, int port, int & sock)
 bool Connect(int sock) {
     char buffer[1024] = { 0 };
     const char* RPCcall = "connect;";
-    char username[20];
-    char password[20];
+    char username[50];
+    char password[50];
+    regex integer_expr("^[a-zA-Z0-9]+$");
 
+    do{
+        // Prompt the user to enter the username
+        cout << "\033[;34m\nEnter username: \033[0m";
+        scanf("%s", username);
 
-    // Prompt the user to enter the username and password
-    cout << "\033[;34m\nEnter username: \033[0m";
-    scanf("%s", username);
-    cout << "\033[;34mEnter password: \033[0m";
-    scanf("%s", password);
+        // The username will be letters a-z, A-Z, 0-9, if not valid, will prompt the user enter again.
+        if(!regex_match(username,integer_expr))
+            cout << "\nUsername input is invalid, please enter letters between a-z, A-Z, 0-9" << endl;
+    } while(!regex_match(username,integer_expr));
+
+    do{
+        // Prompt the user to enter the password
+        cout << "\033[;34m\nEnter password: \033[0m";
+        scanf("%s", password);
+
+        // The password will be letters a-z, A-Z, 0-9, if not valid, will prompt the user enter again.
+        if(!regex_match(password,integer_expr))
+            cout << "\nPassword input is invalid, please enter letters between a-z, A-Z, 0-9" << endl;
+    } while(!regex_match(password,integer_expr));
 
     strcpy(buffer, RPCcall);
     strcat(buffer, username);
@@ -90,6 +105,7 @@ bool Connect(int sock) {
         cout << "\033[1;33m***** Welcome to the quiz game! *****\033[0m\n\n";
         cout << "\033[;33mThere will be 10 quiz questions about computer science. \nEach question have four options, enter you answer with A, B, C or D.\nWhen you answer is correct, you will win 1 point. \nAre you ready?\033[0m\n\n";
         cout << "\033[1;33mLet's play!\033[0m\n\n";
+
 
         return true;
     }
@@ -145,6 +161,7 @@ void PostAnswer(int sock, int num) {
     cout << "\033[;35mEnter your answer: \033[0m";
     scanf("%s", answer);
     char letter = *answer;
+
     cout << "\n" << letter << "\n";
     while (letter != 'A' && letter != 'a' && letter != 'B' && letter != 'b' &&
            letter != 'C' && letter != 'c' && letter != 'D' && letter != 'd') {
@@ -153,7 +170,8 @@ void PostAnswer(int sock, int num) {
         scanf("%s", answer);
         letter = *answer;
     }
-        strcpy(buffer, RPCcall);
+
+    strcpy(buffer, RPCcall);
     string count = std::to_string(num);
     const char* val = count.c_str();
     strcat(buffer, val);
@@ -169,6 +187,7 @@ void PostAnswer(int sock, int num) {
 
     // Display whether the answer is correct or not
     cout << "\n\033[;32m" << buffer << "\033[0m";
+
 }
 
 /*
@@ -227,20 +246,22 @@ int main(int argc, char const* argv[])
     const int port = atoi(argv[2]);
     const int numQuestions = 10;
     vector<std::string> arrayTokens;
+    bool bConnect, login;
 
-    bool bConnect = ConnectToServer(serverAddress, port, sock);
+    // Check if the user's authentication is valid, otherwise, prompt the user enter again
+    do{
+        bConnect = ConnectToServer(serverAddress, port, sock);
+        login = Connect(sock);
+        if(login != true)
+            printf("Your username and/or password is not correct. \nplease enter again.\n");
+    } while(login != true);
 
-    if (bConnect == true)
-    {
-        bool login = Connect(sock);
-
-        // If login successfully will start quiz
-        if(login == true) {
-            for (int i = 0; i < numQuestions; i++) {
-                GetQuestion(sock, i, arrayTokens);
-                PostAnswer(sock, i);
-                GetScore(sock, i);
-            }
+    // If connect successfully, start quiz questions
+    if (bConnect == true){
+        for (int i = 0; i < numQuestions; i++) {
+            GetQuestion(sock, i, arrayTokens);
+            PostAnswer(sock, i);
+            GetScore(sock, i);
         }
     }
     else
