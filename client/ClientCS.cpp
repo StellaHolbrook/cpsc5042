@@ -144,13 +144,14 @@ void PostAnswer(int sock, int num) {
     // Prompt the user to enter the answer
     cout << "\033[;35mEnter your answer: \033[0m";
     scanf("%s", answer);
-    char letter = answer;
+    char letter = *answer;
+    cout << "\n" << letter << "\n";
     while (letter != 'A' && letter != 'a' && letter != 'B' && letter != 'b' &&
            letter != 'C' && letter != 'c' && letter != 'D' && letter != 'd') {
         cout << "\033[;35mWhat you just entered wasn't a valid input; Enter your answer: \033[0m";
         letter = 'a';
         scanf("%s", answer);
-        letter = answer;
+        letter = *answer;
     }
         strcpy(buffer, RPCcall);
     string count = std::to_string(num);
